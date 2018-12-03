@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <head>
+    <title>Check Online State</title>
+  </head>
+
+<h1>Check to see if your device is currently online.</h1>
+<br><br>
+<button onclick="TestConnection()">Test</button>
+<br><br>
+<p id="CurrentState"></p>
+<br><br>
+<p><a href="index.html">Home</a></p>
+
+<script>
+function TestConnection() {
+    var state = "My device is currently connected : " + navigator.onLine;
+    document.getElementById("CurrentState").innerHTML = state;
+}
+</script>
+
+</body>
+</html>
