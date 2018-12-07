@@ -120,10 +120,11 @@
     //contentType: "application/json",
     //dataType: 'jsonp',
     success: function(json) {
-    // console.log(json.length);
-    console.log(json);
+   
+        json.sort(function(a,b){ return b.HR - a.HR; });
+     //   console.log(json);
 
-    $.each(json, function(i, entry) {
+        $.each(json, function(i, entry) {
 
       var clone = $(".template").clone();
       clone.removeClass("template");

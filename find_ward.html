@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Ward</title>
+    <style type="text/css">.template{display:none;}</style>
+    <h1>Enter your zipcode to find your ward, alderman, and other information...</h1>
+    
+</head>
+    
+<body>
+    
+    <br>
+    <p>*Pertains to Chicago citizens only</p>
+    
+    <form>
+        <input type="text"  id="zip_results">
+        <button type="button">Search</button>
+    </form>
+
+    
+    
+  <li class="mdc-list-item template">
+    <span class="mdc-list-item__text">
+      <span class="mdc-list-item__primary-text">First-line text</span>
+      <span class="mdc-list-item__secondary-text">Second-line text</span>
+    </span>
+  </li>
+
+
+
+  <ul id="list_container" class="mdc-list mdc-list--two-line" aria-orientation="vertical"></ul>
+    
+    
+    
+    <br><br>
+<p><a href="index.html">Home</a></p>
+    
+    
+    <script type="text/javascript">
+        $(document).ready(function() {
+            
+                    var w_url = "https://data.cityofchicago.org/resource/7ia9-ayc2.json?zipcode=";
+        
+        $("button").on("click",function(e){
+            $("#list_container").text("");
+            var url = w_url + $("#zip_results").val();
+            
+            $.ajax({
+                url: url,
+                type: "GET",
+                data: {
+                    "$limit" : 500,
+                    "$$app_token" : "eUnzJPDTuufJRy2jVsRxePlab"
+                }
+                
+            }).done(function(data){
+               // alert("retrieved " + data.length + " records from the dataset!");
+                console.log(data);
+                
+                $.each(data, function(i, x){
+                    
+                    var clone = $(".template").clone();
+                    clone.removeClass("template");
+                    clone.attr("id", i);
+                    clone.find(".mdc-list-item__primary-text").text("Alderman " + x.alderman);
+                    clone.find(".mdc-list-item__secondary-text").text("Ward " + x.ward + ", Address: " + x.address + ", Phone: " + x.ward_phone);
+                    $("#list_container").append(clone);
+                });
+            });
+        });    
+        });
+       
+    </script>
+    
+</body>
+</html>
